@@ -11,17 +11,22 @@ CCode - An autocompletion daemon for the C programming language.
 
 ![CCode in vim 2](http://nosmileface.ru/images/ccode2.png)
 
-Something that should look like a usage guide
-----------------------------------------------
 
-1. Build everything (see update.bash).
-2. Place it somewhere on your $PATH.
-3. Copy vim plugin to your .vim/plugin dir.
+Manual Installation
+-------------------
+1. Build everything `make`
+2. Instal `sudo make install` (default /usr/local/bin)
+3. Install vim plugin `cp plugin/ccode.vim ~/.vim/plugin/`
 4. Daemon starts automatically, everything should work out of the box.
-5. Use <C-x><C-o> for autocompletion.
+5. Plugin automatic open autocompletion after type <kdb>:</kdb>, <kdb>.</kdb>, <kdb>-></kdb> or use <C-x><C-o> for autocompletion.
+
 
 FAQ
 ---
-Q: My linux distribution contains broken LLVM/clang build and clang doesn't see its include directory (/usr/lib/clang/2.8/include). What should I do?
+> My linux distribution contains broken LLVM/clang build and clang doesn't see its include directory (/usr/lib/clang/2.8/include). What should I do?
 
-A: In your project dir: `echo " -I/usr/lib/clang/2.8/include" >> .ccode`.
+In your project dir: `echo " -I/usr/lib/clang/2.8/include" >> .ccode`.
+
+> How disable autmatic autocompletion?
+
+Put `g:ccode_auto = 0` in you .vimrc
