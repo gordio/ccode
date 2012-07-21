@@ -7,9 +7,7 @@ CCode - An autocompletion daemon for the C programming language.
 5. Currently only per directory CFLAGS configuration (just dump your CFLAGS to .ccode file). CCode supports shell expansion, e.g. `echo "\$(pkg-config --cflags sdl)" > .ccode` will execute pkg-config with each autocompletion request.
 6. Should work on both 32 and 64 bit machines.
 
-![CCode in vim](http://nosmileface.ru/images/ccode.png)
-
-![CCode in vim 2](http://nosmileface.ru/images/ccode2.png)
+![screenshot CCode in VIM](http://ompldr.org/vZXRmbQ/vim_ccode.png)
 
 
 Manual Installation
@@ -27,6 +25,6 @@ FAQ
 
 In your project dir: `echo " -I/usr/lib/clang/2.8/include" >> .ccode`.
 
-> How disable autmatic autocompletion?
+> How disable autmatic completion after <kdb>:</kdb>, <kdb>.</kdb>, <kdb>-></kdb>?
 
 Put `g:ccode_auto = 0` in you .vimrc
