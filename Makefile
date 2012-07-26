@@ -1,26 +1,28 @@
 #!/usr/bin/make -f
+CC=clang
 
-PROJNAME := $(notdir $(PWD))
-CFILES := $(wildcard src/*.c)
-OBJECTS = $(CFILES:.c=.o)
-PREFIX = "/usr/local"
+PROJNAME := ccode
+CFILES   := $(wildcard src/*.c)
+OBJECTS  := $(CFILES:.c=.o)
+PREFIX   := /usr/local
 
-PCFLAGS = -L`llvm-config --libdir` -std=gnu99
-PLDFLAGS = "-lclang"
+PCFLAGS := -std=gnu99
+PCFLAGS += $(CFLAGS)
 
-
-CFLAGS += -pipe
+PLDFLAGS := -L$(llvm-config --libdir) -lclang
+PLDFLAGS += $(LDFLAGS)
 
 .SUFFIXES: .a .c .h .o
 .PHONY: all static clear clean install uninstall types
 
+
 all: $(OBJECTS)
 	@echo -e "\033[1;32m LINK\033[0m" $(PROJNAME)
-	@$(CC) $(PCFLAGS) $(CFLAGS) $(PLDFLAGS) $(LDFLAGS) $(OBJECTS) -o "$(PROJNAME)"
+	$(CC) $(PLDFLAGS) $(OBJECTS) -o "$(PROJNAME)"
 
 %.o: %.c
 	@echo -e "\033[1m   CC\033[0m" $<
-	@$(CC) $(PCFLAGS) $(CFLAGS) -c $< -o $@
+	@$(CC) $(PCFLAGS) -c $< -o $@
 
 clear:
 	@echo -e "\033[1;31m   RM\033[0m" $(OBJECTS)
@@ -30,11 +32,11 @@ clean: clear
 	@echo -e "\033[1;31m   RM\033[0m" "$(PROJNAME)"
 	@rm -f "$(PROJNAME)"
 
-install: all
-	install -m 744 "$(PROJNAME)" "$(PREFIX)/bin/$(PROJNAME)"
+install:
+	install -m 755 "$(PROJNAME)" "$(PREFIX)/bin/"
 
-uninstall: all
-	rm "$(PROJNAME)" "$(PREFIX)/bin/$(PROJNAME)"
+uninstall:
+	rm "$(PREFIX)/bin/$(PROJNAME)"
 
 types: types.vim
 types.vim: src/*.[ch]
