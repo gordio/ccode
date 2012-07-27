@@ -1,5 +1,6 @@
 CCode - An autocompletion daemon for the C programming language.
 
+
 1. Linux only, don't ask me to port it somewhere. If you need that - do it. But kinda works on Mac too.
 2. Relies on the C99 compliance (flexible array members, snprintf behaviour, etc).
 3. Mostly done, but has few quirks.
@@ -17,6 +18,13 @@ Manual Installation
 3. Install vim plugin `cp plugin/ccode.vim ~/.vim/plugin/`
 4. Daemon starts automatically, everything should work out of the box.
 5. Plugin automatic open autocompletion after type <kdb>:</kdb>, <kdb>.</kdb>, <kdb>-></kdb> or use <C-x><C-o> for autocompletion.
+
+
+Files
+-----
+ - `ccode.py` — Sublime Text 2 Plugin for completion code
+ - `plugin/ccode.vim` — VIM Plugin for completion code
+ - `ccode` — Client/Server program for generate completions
 
 
 FAQ
