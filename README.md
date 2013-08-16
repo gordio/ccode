@@ -8,7 +8,7 @@ CCode - An autocompletion daemon for the C programming language.
 5. Currently only per directory CFLAGS configuration (just dump your CFLAGS to .ccode file). CCode supports shell expansion, e.g. `echo "\$(pkg-config --cflags sdl)" > .ccode` will execute pkg-config with each autocompletion request.
 6. Should work on both 32 and 64 bit machines.
 
-![screenshot CCode in VIM](http://ompldr.org/vZXRmbQ/vim_ccode.png)
+![screenshot CCode in VIM](http://pic4net.com/di-N55HM1.png)
 
 
 Manual Installation
