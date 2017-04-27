@@ -1,15 +1,13 @@
 #!/usr/bin/make -f
-CC=clang
-
 PROJNAME := ccode
 CFILES   := $(wildcard src/*.c)
 OBJECTS  := $(CFILES:.c=.o)
 PREFIX   := /usr/local
 
-PCFLAGS := -std=gnu99
+PCFLAGS := -I$(shell llvm-config --includedir) -std=gnu99
 PCFLAGS += $(CFLAGS)
 
-PLDFLAGS := -L$(llvm-config --libdir) -lclang
+PLDFLAGS := -L$(shell llvm-config --libdir) -lclang
 PLDFLAGS += $(LDFLAGS)
 
 .SUFFIXES: .a .c .h .o
@@ -17,19 +15,19 @@ PLDFLAGS += $(LDFLAGS)
 
 
 all: $(OBJECTS)
-	@echo -e "\033[1;32m LINK\033[0m" $(PROJNAME)
-	$(CC) $(PLDFLAGS) $(OBJECTS) -o "$(PROJNAME)"
+	@echo "\033[1;32m LINK\033[0m" $(PROJNAME)
+	@$(CC) $(PLDFLAGS) $(OBJECTS) -o "$(PROJNAME)"
 
 %.o: %.c
-	@echo -e "\033[1m   CC\033[0m" $<
+	@echo "\033[1m   CC\033[0m" $@ "<-" $<
 	@$(CC) $(PCFLAGS) -c $< -o $@
 
 clear:
-	@echo -e "\033[1;31m   RM\033[0m" $(OBJECTS)
+	@echo "\033[1;31m   RM\033[0m" $(OBJECTS)
 	@rm -f $(OBJECTS)
 
 clean: clear
-	@echo -e "\033[1;31m   RM\033[0m" "$(PROJNAME)"
+	@echo "\033[1;31m   RM\033[0m" "$(PROJNAME)"
 	@rm -f "$(PROJNAME)"
 
 install:
