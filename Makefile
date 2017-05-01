@@ -4,11 +4,9 @@ CFILES   := $(wildcard src/*.c)
 OBJECTS  := $(CFILES:.c=.o)
 PREFIX   := /usr/local
 
-PCFLAGS := -I$(shell llvm-config --includedir) -std=gnu99
-PCFLAGS += $(CFLAGS)
+CFLAGS += -I$(shell llvm-config --includedir) -std=gnu99
 
-PLDFLAGS := -L$(shell llvm-config --libdir) -lclang
-PLDFLAGS += $(LDFLAGS)
+LDFLAGS += -L$(shell llvm-config --libdir) -lclang
 
 .SUFFIXES: .a .c .h .o
 .PHONY: all static clear clean install uninstall types
@@ -16,11 +14,16 @@ PLDFLAGS += $(LDFLAGS)
 
 all: $(OBJECTS)
 	@echo "\033[1;32m LINK\033[0m" $(PROJNAME)
-	@$(CC) $(PLDFLAGS) $(OBJECTS) -o "$(PROJNAME)"
+	@$(CC) $(LDFLAGS) $(OBJECTS) -o "$(PROJNAME)"
+
+
+%.o: %.c %.h
+	@echo "\033[1m   CC\033[0m" $@ "<-" $<
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 %.o: %.c
 	@echo "\033[1m   CC\033[0m" $@ "<-" $<
-	@$(CC) $(PCFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clear:
 	@echo "\033[1;31m   RM\033[0m" $(OBJECTS)
